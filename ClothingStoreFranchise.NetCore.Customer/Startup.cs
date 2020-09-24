@@ -22,7 +22,7 @@ namespace ClothingStoreFranchise.NetCore.Customers
 {
     public class Startup
     {
-        protected IMapperProvider MapperProvider { get; } = new CustomerMapperProvider();
+        protected IMapperProvider MapperProvider { get; } = new CustomersMapperProvider();
 
         public IConfiguration Configuration { get; }
 
