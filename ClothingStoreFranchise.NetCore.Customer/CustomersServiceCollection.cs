@@ -26,8 +26,11 @@ namespace ClothingStoreFranchise.NetCore.Customers
         public static void AddCustomersServices(this IServiceCollection services)
         {
             services.AddScoped<ICustomerDao, CustomerDao>();
-            services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IProductDao, ProductDao>();
+            services.AddScoped<ICartProductDao, CartProductDao>();
+
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ICartProductService, CartProductService>();
 
             services.AddTransient<ICustomersIntegrationEventService, CustomersIntegrationEventService>();
             services.AddAutoMapper(typeof(Startup).GetTypeInfo().Assembly);
@@ -63,12 +66,10 @@ namespace ClothingStoreFranchise.NetCore.Customers
             services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(
                 sp => (DbConnection c) => new IntegrationEventLogService(c));
 
-            //services.AddTransient<ICatalogIntegrationEventService, CatalogIntegrationEventService>();
             services.AddTransient<ICustomersIntegrationEventService, CustomersIntegrationEventService>();
 
             services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
             {
-                //var settings = sp.GetRequiredService<IOptions<CatalogSettings>>().Value;
                 var logger = sp.GetRequiredService<ILogger<RabbitMQPersistentConnection>>();
 
                 var factory = new ConnectionFactory()

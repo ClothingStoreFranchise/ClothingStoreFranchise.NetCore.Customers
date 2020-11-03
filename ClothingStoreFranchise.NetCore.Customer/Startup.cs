@@ -22,11 +22,9 @@ namespace ClothingStoreFranchise.NetCore.Customers
 {
     public class Startup
     {
-        protected IMapperProvider MapperProvider { get; } = new CustomersMapperProvider();
-
         public IConfiguration Configuration { get; }
 
-        public IContainer Container { get; private set; }
+        protected IMapperProvider MapperProvider { get; } = new CustomersMapperProvider();
 
         public Startup(IConfiguration configuration)
         {
@@ -36,12 +34,14 @@ namespace ClothingStoreFranchise.NetCore.Customers
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             var options = Configuration.GetOptions<RabbitMqOptions>("rabbitMq");
-            
+
             services.AddEventBus(options);
             services.AddIntegrationServices(options);
             services.AddDiscoveryClient(Configuration);
             services.AddHttpContextAccessor();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             services.AddAuthentication("Basic")
                  .AddScheme<BasicAuthenticationOptions, CustomAuthenticationHandler>("Basic", null);
