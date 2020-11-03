@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ClothingStoreFranchise.NetCore.Customers.Dto
 {
-    public class CustomerDto : BaseExtensibleEntityDto, IEntityDto<long>
+    public class CustomerDto : IEntityDto<long>
     {
         public long Id { get; set; }
 
@@ -31,7 +31,5 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dto
         public ICollection<CartProductDto> Products { get; set; }
 
         public long Key() => Id;
-
-        public override string ExtensibleEntityName => typeof(Customer).Name;
     }
 }

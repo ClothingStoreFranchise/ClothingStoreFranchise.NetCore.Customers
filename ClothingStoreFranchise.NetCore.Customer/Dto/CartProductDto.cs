@@ -1,4 +1,5 @@
-﻿using ClothingStoreFranchise.NetCore.Common.Extensible;
+﻿using ClothingStoreFranchise.NetCore.Common.Constants;
+using ClothingStoreFranchise.NetCore.Common.Extensible;
 using ClothingStoreFranchise.NetCore.Common.Types;
 using ClothingStoreFranchise.NetCore.Customers.Model;
 using System;
@@ -14,18 +15,20 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dto
         public long Id { get; set; }
 
         [Required]
-        public string CustomerId { get; set; }
+        public string CustomerUsername { get; set; }
 
         [Required]
         public long ProductId { get; set; }
 
-        public Product Product { get; set; }
+        public string Name { get; private set; }
 
         public decimal UnitPrice { get; set; }
 
         public int Quantity { get; set; }
 
         public char Size { get; set; }
+
+        public ClothingSizeType ClothingSizeType { get; set; }
 
         public long Key() => Id;
 

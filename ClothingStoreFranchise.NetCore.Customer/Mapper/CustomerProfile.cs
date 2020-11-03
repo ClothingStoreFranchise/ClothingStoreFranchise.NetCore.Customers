@@ -10,9 +10,13 @@ namespace ClothingStoreFranchise.NetCore.Customers.Mapper
     {
         public CustomerProfile()
         {
-            CreateMap<Customer, CustomerDto>().IncludeBase<IExtensibleEntity, BaseExtensibleEntityDto>();
+            //CreateMap<Customer, CustomerDto>().IncludeBase<IExtensibleEntity, BaseExtensibleEntityDto>();
 
-            CreateMap<CustomerDto, Customer>().IncludeBase<BaseExtensibleEntityDto, IExtensibleEntity>();
+            //CreateMap<CustomerDto, Customer>().IncludeBase<BaseExtensibleEntityDto, IExtensibleEntity>();
+
+            CreateMap<Customer, CustomerDto>();
+
+            CreateMap<CustomerDto, Customer>();
 
             CreateMap<CustomerDto, RegisterUserEvent>();
         }

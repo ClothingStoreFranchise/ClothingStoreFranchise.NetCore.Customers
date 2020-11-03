@@ -9,9 +9,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Mapper
     {
         public ProductProfile()
         {
-            CreateMap<Product, ProductDto>().IncludeBase<IExtensibleEntity, BaseExtensibleEntityDto>();
+            CreateMap<Product, ProductDto>();
 
-            CreateMap<ProductDto, Product>().IncludeBase<BaseExtensibleEntityDto, IExtensibleEntity>();
+            CreateMap<ProductDto, Product>();
 
             /*.ForMember(entity => entity., p => p.Ignore())
             .ForMember(entiy => entiy.Offers, p => p.Ignore())
