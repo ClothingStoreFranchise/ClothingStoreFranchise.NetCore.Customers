@@ -1,8 +1,5 @@
-﻿using ClothingStoreFranchise.NetCore.Common.Constants;
-using ClothingStoreFranchise.NetCore.Customers.Dto;
+﻿using ClothingStoreFranchise.NetCore.Customers.Dto;
 using ClothingStoreFranchise.NetCore.Customers.Facade;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -13,7 +10,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
-        
+
         public CustomerController(ICustomerService customerService)
         {
             _customerService = customerService;
@@ -32,12 +29,12 @@ namespace ClothingStoreFranchise.NetCore.Customers.Controllers
             return "Hola";
         }*/
 
+
+        //[Authorize(Roles = Policies.Admin)]
         [HttpGet("{username}")]
-        [Authorize(Roles = Policies.Admin)]
         public async Task<ActionResult<CustomerDto>> Get(string username)
-        {   
-            var a = await _customerService.FindByUserNameAsync(username);
-            return a;
+        {
+            return await _customerService.FindByUserNameAsync(username);
         }
 
         [HttpPost]

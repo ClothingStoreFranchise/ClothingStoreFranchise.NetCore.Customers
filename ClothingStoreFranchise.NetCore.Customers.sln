@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClothingStoreFranchise.NetCore.Customers", "ClothingStoreFranchise.NetCore.Customer\ClothingStoreFranchise.NetCore.Customers.csproj", "{A03C0706-3DB6-4A5C-AFB1-1E0A21AD715F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClothingStoreFranchise.NetCore.Customers", "ClothingStoreFranchise.NetCore.Customer\ClothingStoreFranchise.NetCore.Customers.csproj", "{A03C0706-3DB6-4A5C-AFB1-1E0A21AD715F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
