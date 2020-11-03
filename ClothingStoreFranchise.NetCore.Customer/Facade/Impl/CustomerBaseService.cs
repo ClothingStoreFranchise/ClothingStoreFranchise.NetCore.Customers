@@ -101,7 +101,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
         {
             TEntity entity = await UpdateValidationActionsAsync(dto);
             entity = _mapper.Map(dto, entity);
-            return await UpdateActionsAsync(entity, dto);
+            return await UpdateActionsAsync(entity);
         }
 
         protected async virtual Task<TEntity> UpdateValidationActionsAsync(TEntityDto dto)
@@ -123,7 +123,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             return entity;
         }
 
-        protected async virtual Task<TEntityDto> UpdateActionsAsync(TEntity entity, TEntityDto dto)
+        protected async virtual Task<TEntityDto> UpdateActionsAsync(TEntity entity)
         {
             TEntity updatedEntity = await _entityDao.UpdateAsync(entity);
             return _mapper.Map<TEntityDto>(updatedEntity);
