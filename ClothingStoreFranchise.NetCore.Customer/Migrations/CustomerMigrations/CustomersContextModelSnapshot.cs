@@ -21,9 +21,11 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
             modelBuilder.Entity("ClothingStoreFranchise.NetCore.Customers.Model.CartProduct", b =>
                 {
                     b.Property<long>("Id")
-                        .HasColumnType("bigint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CustomerUserName")
+                    b.Property<string>("CustomerUsername")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -37,10 +39,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("CartProducts");
                 });
@@ -48,7 +49,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
             modelBuilder.Entity("ClothingStoreFranchise.NetCore.Customers.Model.Customer", b =>
                 {
                     b.Property<long>("Id")
-                        .HasColumnType("bigint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -82,6 +85,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("ClothingSizeType")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -97,6 +103,15 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ClothingStoreFranchise.NetCore.Customers.Model.CartProduct", b =>
+                {
+                    b.HasOne("ClothingStoreFranchise.NetCore.Customers.Model.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

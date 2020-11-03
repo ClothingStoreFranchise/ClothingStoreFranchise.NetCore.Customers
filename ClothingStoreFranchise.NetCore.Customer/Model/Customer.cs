@@ -24,7 +24,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Model
         public string Email { get; set; }
 
         [NotMapped]
-        public ICollection<CartProduct> Products { get; set; }
+        public ICollection<CartProduct> CartProducts { get; set; }
 
         public override long GetAppId()
         {
