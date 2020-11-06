@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace ClothingStoreFranchise.NetCore.Customers.EventHandlers
 {
-    public class ProductCreatedHandler : IIntegrationEventHandler<CreateProductEvent>
+    public class ProductStockCreatedHandler : IIntegrationEventHandler<CreateProductStockEvent>
     {
         private readonly IProductDao _productDao;
         private readonly IMapper _mapper;
 
-        public ProductCreatedHandler(IProductDao productDao, IMapper mapper)
+        public ProductStockCreatedHandler(IProductDao productDao, IMapper mapper)
         {
             _productDao = productDao;
             _mapper = mapper;
         }
 
-        public async Task HandleAsync(CreateProductEvent @event)
+        public async Task HandleAsync(CreateProductStockEvent @event)
         {
             //var customer = new CreateProductEvent(@event.Id, @event.Stock, @event.UnitPrice, @event.PictureUrl);
             
