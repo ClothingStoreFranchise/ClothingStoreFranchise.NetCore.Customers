@@ -40,7 +40,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
                 TEntity entity = _mapper.Map<TEntity>(dto);
                 entities.Add(entity);
             }
-            return await CreateActionsAsync(entities, dtos);
+            return await CreateActionsAsync(entities);
         }
 
         protected async virtual Task CreateValidationActionsAsync(TEntityDto dto)
@@ -61,7 +61,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             return _mapper.Map<TEntityDto>(entityCreated);
         }
 
-        protected async virtual Task<ICollection<TEntityDto>> CreateActionsAsync(ICollection<TEntity> entities, ICollection<TEntityDto> dtos)
+        protected async virtual Task<ICollection<TEntityDto>> CreateActionsAsync(ICollection<TEntity> entities)
         {
             ICollection<TEntity> created = await _entityDao.CreateAsync(entities);
             return _mapper.Map<ICollection<TEntityDto>>(created);
@@ -88,11 +88,6 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             return entities.Select(l => _mapper.Map<TEntityDto>(l)).ToList();
         }
 
-        protected virtual ICollection<TEntity> LoadAllAllowedEntities()
-        {
-            return null;
-        }
-
         #endregion
 
         #region "Update"
@@ -107,18 +102,15 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
         protected async virtual Task<TEntity> UpdateValidationActionsAsync(TEntityDto dto)
         {
             TEntity entity = await _entityDao.LoadAsync(dto.Key());
-            /*if (!AreEntitiesVisible(new[] { entity }, true))
-            {
-                throw new EntityDoesNotExistException();
-            }*/
+
             /*if (!IsValid(dto))
             {
                 //throw new InvalidDataException();
             }*/
-            if (await _entityDao.AnyAsync(EntityAlreadyExistsToUpdateCondition(dto)))
+            /*if (await _entityDao.AnyAsync(EntityAlreadyExistsToUpdateCondition(dto)))
             {
                 //throw new EntityAlreadyExistsException();
-            }
+            }*/
 
             return entity;
         }

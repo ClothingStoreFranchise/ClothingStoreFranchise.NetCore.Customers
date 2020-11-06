@@ -22,6 +22,13 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
         public async Task<ICollection<CartProductDto>> FindCartProductsByUsername(string username)
         {
             ICollection<CartProduct> cartProducts = await cartProductDao.FindByUserNameAsync(username);
+            var cartProductWithoutEnoughtStockIds = cartProducts.Where(s => s.Quantity <= s.Size.Stock).Select(s => s.Id).ToList();
+            
+            if(cartProductWithoutEnoughtStockIds == null)
+            {
+                await base.DeleteAsync(cartProductWithoutEnoughtStockIds);
+            }
+            
             return cartProducts.Select(l => _mapper.Map<CartProductDto>(l)).ToList();
         }
 

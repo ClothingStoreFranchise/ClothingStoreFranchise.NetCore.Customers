@@ -21,7 +21,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dao.Impl
         protected override IQueryable<CartProduct> QueryTemplate()
         {
             return base.QueryTemplate()
-                .Include(o => o.Product);
+                .Include(o => o.Size.Product);
         }
     }
 }

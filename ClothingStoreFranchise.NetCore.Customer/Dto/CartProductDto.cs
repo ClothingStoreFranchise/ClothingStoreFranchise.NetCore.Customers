@@ -26,7 +26,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dto
 
         public int Quantity { get; set; }
 
-        public char Size { get; set; }
+        public int Size { get; set; }
+
+        public string PictureUrl { get; set; }
 
         public ClothingSizeType ClothingSizeType { get; set; }
 

@@ -15,6 +15,8 @@ namespace ClothingStoreFranchise.NetCore.Customers
 
         public DbSet<CartProduct> CartProducts { get; set; }
 
+        public DbSet<SizeStock> SizeStocks { get; set; }
+
         public DbSet<Product> Products { get; set; }
     }
 

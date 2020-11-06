@@ -8,14 +8,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Model
         [Required]
         public string CustomerUsername { get; set; }
 
-        [Required]
-        public long ProductId { get; set; }
-
-        public Product Product { get; set; }
-
         public int Quantity { get; set; }
 
-        public char Size { get; set; }
+        public SizeStock Size { get; set; }
 
         public override long GetAppId()
         {
