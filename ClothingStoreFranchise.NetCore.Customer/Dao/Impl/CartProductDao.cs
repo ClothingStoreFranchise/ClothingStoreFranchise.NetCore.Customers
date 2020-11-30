@@ -13,9 +13,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dao.Impl
         {
         }
 
-        public async Task<ICollection<CartProduct>> FindByUserNameAsync(string username)
+        public async Task<ICollection<CartProduct>> FindByCustomerIdAsync(long customerId)
         {
-            return await FindWhereAsync(cartProduct => cartProduct.CustomerUsername == username);
+            return await FindWhereAsync(cartProduct => cartProduct.CustomerId == customerId);
         }
 
         protected override IQueryable<CartProduct> QueryTemplate()

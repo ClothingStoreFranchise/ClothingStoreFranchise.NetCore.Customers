@@ -7,6 +7,6 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dao
 {
     public interface ICartProductDao : IDao<CartProduct, long>
     {
-        Task<ICollection<CartProduct>> FindByUserNameAsync(string username);
+        Task<ICollection<CartProduct>> FindByCustomerIdAsync(long customerId);
     }
 }

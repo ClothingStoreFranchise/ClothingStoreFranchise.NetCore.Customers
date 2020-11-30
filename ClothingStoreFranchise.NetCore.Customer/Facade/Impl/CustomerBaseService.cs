@@ -26,9 +26,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         public async virtual Task<TEntityDto> CreateAsync(TEntityDto dto)
         {
-            await CreateValidationActionsAsync(dto);
+            //await CreateValidationActionsAsync(dto);
             TEntity entity = _mapper.Map<TEntity>(dto);
-            return await CreateActionsAsync(entity, dto);
+            return await CreateActionsAsync(entity);
         }
 
         public async virtual Task<ICollection<TEntityDto>> CreateAsync(ICollection<TEntityDto> dtos)
@@ -36,7 +36,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             var entities = new List<TEntity>();
             foreach (TEntityDto dto in dtos)
             {
-                await CreateValidationActionsAsync(dto);
+                //await CreateValidationActionsAsync(dto);
                 TEntity entity = _mapper.Map<TEntity>(dto);
                 entities.Add(entity);
             }
@@ -55,7 +55,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             }
         }
 
-        protected async virtual Task<TEntityDto> CreateActionsAsync(TEntity entity, TEntityDto dto)
+        protected async virtual Task<TEntityDto> CreateActionsAsync(TEntity entity)
         {
             TEntity entityCreated = await _entityDao.CreateAsync(entity);
             return _mapper.Map<TEntityDto>(entityCreated);
@@ -82,7 +82,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             return _mapper.Map<TEntityDto>(entity);
         }
 
-        public async virtual  Task<ICollection<TEntityDto>> LoadAllAsync()
+        public async virtual Task<ICollection<TEntityDto>> LoadAllAsync()
         {
             ICollection<TEntity> entities = await _entityDao.LoadAllAsync();
             return entities.Select(l => _mapper.Map<TEntityDto>(l)).ToList();
@@ -92,17 +92,25 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         #region "Update"
 
+        public async virtual Task<ICollection<TEntityDto>> UpdateAsync(ICollection<TEntityDto> dto)
+        {
+            ICollection<TEntity> entities = dto.Select(l => _mapper.Map<TEntity>(l)).ToList();
+            ICollection<TEntity> entitiesUpdated = await _entityDao.UpdateAsync(entities);
+            return entities.Select(l => _mapper.Map<TEntityDto>(l)).ToList();
+        }
+
         public async virtual Task<TEntityDto> UpdateAsync(TEntityDto dto)
         {
-            TEntity entity = await UpdateValidationActionsAsync(dto);
-            entity = _mapper.Map(dto, entity);
+
+            //TEntity entity = UpdateValidationActions(dto);
+            //entity = _mapper.Map(dto, entity);
+            TEntity entity = _mapper.Map<TEntity>(dto);
             return await UpdateActionsAsync(entity);
         }
 
-        protected async virtual Task<TEntity> UpdateValidationActionsAsync(TEntityDto dto)
+        protected virtual TEntity UpdateValidationActions(TEntityDto dto)
         {
-            TEntity entity = await _entityDao.LoadAsync(dto.Key());
-
+            TEntity entity = _entityDao.Load(dto.Key());
             /*if (!IsValid(dto))
             {
                 //throw new InvalidDataException();
@@ -125,6 +133,11 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         #region "Delete"
 
+        public async virtual Task DeleteAsync(TAppId appId)
+        {
+            await _entityDao.DeleteAsync(appId);
+        }
+
         public async virtual Task DeleteAsync(ICollection<TAppId> listAppId)
         {
             //DeleteValidationActions(listAppId);
@@ -138,11 +151,11 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
                 //throw new EntityDoesNotExistException();
             }*/
 
-            /*if (await _entityDao.AnyAsync(EntityHasDependenciesToDeleteCondition(listAppId)))
-            {
-                //throw new EntityHasDependenciesException();
-            }
-        }*/
+        /*if (await _entityDao.AnyAsync(EntityHasDependenciesToDeleteCondition(listAppId)))
+        {
+            //throw new EntityHasDependenciesException();
+        }
+    }*/
 
         #endregion
 

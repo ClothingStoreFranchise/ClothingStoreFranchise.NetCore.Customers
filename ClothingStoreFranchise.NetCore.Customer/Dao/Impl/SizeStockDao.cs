@@ -12,9 +12,14 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dao.Impl
         {
         }
 
-        public async Task<SizeStock> FindByProductIdAndSizeWithEnoughStock(long productId, int size, long quenatity)
+        public async Task<SizeStock> FindByProductIdAndSizeWithEnoughStock(long productId, int size, long quantity)
         {
-            return await FindSingleWhereAsync(stock => stock.Size == size && stock.Stock <= quenatity && stock.Product.Id == productId);
+            return await FindSingleWhereAsync(stock => stock.Size == size && quantity  <= stock.Stock && stock.Product.Id == productId);
+        }
+
+        public async Task<SizeStock> FindByProductIdAndSize(long productId, int size)
+        {
+            return await FindSingleWhereAsync(stock => stock.Size == size && stock.Product.Id == productId);
         }
 
         protected override IQueryable<SizeStock> QueryTemplate()

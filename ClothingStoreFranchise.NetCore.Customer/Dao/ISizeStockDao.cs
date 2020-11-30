@@ -7,5 +7,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dao
     public interface ISizeStockDao : IDao<SizeStock, long>
     {
         Task<SizeStock> FindByProductIdAndSizeWithEnoughStock(long productId, int size, long quenatity);
+
+        Task<SizeStock> FindByProductIdAndSize(long productId, int size);
     }
 }

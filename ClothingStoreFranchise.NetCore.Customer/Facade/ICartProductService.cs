@@ -6,12 +6,12 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade
 {
     public interface ICartProductService
     {
-        Task<ICollection<CartProductDto>> CreateAsync(ICollection<CartProductDto> cartProductDtos);
+        Task<CartProductDto> UpdateQuantityAsync(long productId, int quantity);
 
-        Task<CartProductDto> UpdateAsync(CartProductDto cartProductDto);
+        Task<ICollection<CartProductDto>> AddUpdateCartProducts(long customerId, ICollection<CartProductDto> cartProductDtos);
 
-        Task<ICollection<CartProductDto>> FindCartProductsByUsername(string username);
+        Task<ICollection<CartProductDto>> FindCartProductsByCustomerId(long customerId);
 
-        Task DeleteAsync(ICollection<long> listAppId);
+        Task DeleteAsync(long id);
     }
 }

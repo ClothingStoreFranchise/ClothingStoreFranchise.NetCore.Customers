@@ -6,6 +6,6 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dao
 {
     public interface ICustomerDao : IDao<Customer, long>
     {
-        Task<Customer> FindByUserNameAsync(string userName);
+        Task<Customer> FindByUsernameAsync(string userName);
     }
 }

@@ -16,9 +16,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dto
 
         public string Password { get; set; }
 
-        public string LastName { get; set; }
+        public string FirstName { get; set; }
 
-        public string Name { get; set; }
+        public string LastName { get; set; }
 
         public string Address { get; set; }
 
@@ -28,7 +28,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dto
 
         public string Email { get; set; }
 
-        public ICollection<CartProductDto> Products { get; set; }
+        public ICollection<CartProductDto> CartProducts { get; set; }
 
         public long Key() => Id;
     }

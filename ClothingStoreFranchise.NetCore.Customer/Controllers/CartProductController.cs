@@ -20,34 +20,34 @@ namespace ClothingStoreFranchise.NetCore.Customers.Controllers
             _stockService = stockService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<ICollection<CartProductDto>>> GetWithoutLogIn(ICollection<CartProductDto> cartProductDtos)
+        [HttpPut]
+        public async Task<ActionResult<ICollection<CartProductDto>>> GetWithoutLogIn([FromBody] ICollection<CartProductDto> cartProductDtos)
         {
             return Ok(await _stockService.FindByProductIdAndSizeWithEnoughStock(cartProductDtos));
         }
 
-        [HttpGet("{username}")]
-        public async Task<ActionResult<ICollection<CartProductDto>>> GetByUsername(string username)
+        [HttpGet("{customerId}")]
+        public async Task<ActionResult<ICollection<CartProductDto>>> GetByCustomer(long customerId)
         {
-            return Ok(await _cartProductService.FindCartProductsByUsername(username));
+            return Ok(await _cartProductService.FindCartProductsByCustomerId(customerId));
         }
 
-        [HttpPost]
-        public async Task<ActionResult<ICollection<CartProductDto>>> Create(ICollection<CartProductDto> cartProductDtos)
+        [HttpPut("{customerId}")]
+        public async Task<ActionResult<ICollection<CartProductDto>>> CreateOrUpdateIfExistMultiple(long customerId, [FromBody] ICollection<CartProductDto> cartProducts)
         {
-            return Ok(await _cartProductService.CreateAsync(cartProductDtos));
+            return Ok(await _cartProductService.AddUpdateCartProducts(customerId, cartProducts));
         }
-
-        [HttpPut]
-        public async Task<ActionResult<CartProductDto>> Update(CartProductDto cartProductDto)
+        
+        [HttpPut("quantity")]
+        public async Task<ActionResult<CartProductDto>> UpdateQuantity([FromBody] CartProductDto cartProductDto)
         {
-            return Ok(await _cartProductService.UpdateAsync(cartProductDto));
+            return Ok(await _cartProductService.UpdateQuantityAsync(cartProductDto.Id, cartProductDto.Quantity));
         }
-
+        
         [HttpDelete("{cartProductId}")]
         public async Task Delete(long cartProductId)
         {
-            await _cartProductService.DeleteAsync(new List<long>() { cartProductId });
+            await _cartProductService.DeleteAsync(cartProductId);
         }
     }
 }

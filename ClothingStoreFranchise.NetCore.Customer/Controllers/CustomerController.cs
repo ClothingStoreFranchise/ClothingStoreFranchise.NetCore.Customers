@@ -1,6 +1,7 @@
 ﻿using ClothingStoreFranchise.NetCore.Customers.Dto;
 using ClothingStoreFranchise.NetCore.Customers.Facade;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ClothingStoreFranchise.NetCore.Customers.Controllers
@@ -32,15 +33,15 @@ namespace ClothingStoreFranchise.NetCore.Customers.Controllers
 
         //[Authorize(Roles = Policies.Admin)]
         [HttpGet("{username}")]
-        public async Task<ActionResult<CustomerDto>> Get(string username)
+        public async Task<ActionResult<CustomerDto>> GetByUsername(string username)
         {
-            return await _customerService.FindByUserNameAsync(username);
+            return await _customerService.FindByUsernameAsync(username);
         }
 
         [HttpPost]
-        public async Task Post(CustomerDto customer)
+        public async Task<ActionResult<CartProductDto>> Create(CustomerDto customer)
         {
-            await _customerService.CreateCustomerAsync(customer);
+            return Ok(await _customerService.CreateAsync(customer));
         }
 
         /*

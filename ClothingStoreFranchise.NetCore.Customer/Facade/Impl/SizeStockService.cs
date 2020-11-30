@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 {
-    public class SizeStockService : CustomerBaseService<SizeStock, long, CartProductDto, ISizeStockDao>, ISizeStockService
+    public class SizeStockService : CustomerBaseService<SizeStock, long, StockDto, ISizeStockDao>, ISizeStockService
     {
         private readonly ISizeStockDao _sizeStockDao;
 
@@ -21,17 +21,41 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         public async Task<ICollection<CartProductDto>> FindByProductIdAndSizeWithEnoughStock(ICollection<CartProductDto> cartProductDtos)
         {
-            var sizeStocks = new List<SizeStock>();
+            var cartLoaded = new List<CartProductDto>();
             foreach (var cartProduct in cartProductDtos)
             {
-                SizeStock sizeStock = await _sizeStockDao.FindByProductIdAndSizeWithEnoughStock(cartProduct.Id, cartProduct.Size, cartProduct.Quantity);
-                sizeStocks.Add(sizeStock);
+                SizeStock sizeStock = await _sizeStockDao.FindByProductIdAndSizeWithEnoughStock(cartProduct.ProductId, cartProduct.Size, cartProduct.Quantity);
+
+                if (sizeStock != null)
+                {
+                    var cartProductLoaded = _mapper.Map<CartProductDto>(sizeStock);
+
+                    cartProductLoaded.Quantity = cartProduct.Quantity;
+                    cartLoaded.Add(cartProductLoaded);
+                }
             }
 
-            return sizeStocks.Select(l => _mapper.Map<CartProductDto>(l)).ToList(); ;
+            return cartLoaded;
         }
 
-        protected override Expression<Func<SizeStock, bool>> EntityAlreadyExistsCondition(CartProductDto dto)
+        public async Task UpdateStock(ICollection<StockDto> stockDtos)
+        {
+            foreach(var stock in stockDtos)
+            {
+                SizeStock stockLoaded = await _sizeStockDao.FindByProductIdAndSize(stock.ProductId, stock.Size);
+                if (stockLoaded != null)
+                {
+                    stockLoaded = _mapper.Map(stock, stockLoaded);
+                    await _entityDao.UpdateAsync(stockLoaded);
+                }
+                else
+                {
+                    await CreateAsync(stock);
+                }
+            }
+        }
+
+        protected override Expression<Func<SizeStock, bool>> EntityAlreadyExistsCondition(StockDto dto)
         {
             throw new NotImplementedException();
         }
@@ -41,7 +65,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             throw new NotImplementedException();
         }
 
-        protected override bool IsValid(CartProductDto dto)
+        protected override bool IsValid(StockDto dto)
         {
             throw new NotImplementedException();
         }

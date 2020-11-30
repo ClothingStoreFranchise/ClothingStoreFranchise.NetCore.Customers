@@ -8,6 +8,8 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade
 {
     public interface ISizeStockService
     {
+        Task UpdateStock(ICollection<StockDto> stockDtos);
+
         Task<ICollection<CartProductDto>> FindByProductIdAndSizeWithEnoughStock(ICollection<CartProductDto> cartProductDtos);
     }
 }

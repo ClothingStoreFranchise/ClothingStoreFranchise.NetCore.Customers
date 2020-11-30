@@ -6,17 +6,15 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade
 {
     public interface ICustomerService
     {
-        Task CreateCustomerAsync(CustomerDto customerDto);
-
-        Task<ICollection<CustomerDto>> CreateAsync(ICollection<CustomerDto> customer);
+        Task<CustomerDto> CreateAsync(CustomerDto customerDto);
 
         Task<CustomerDto> UpdateAsync(CustomerDto customer);
 
-        Task DeleteAsync(ICollection<long> listAppId);
+        Task DeleteAsync(long id);
 
         Task<ICollection<CustomerDto>> LoadAllAsync();
 
-        Task<CustomerDto> FindByUserNameAsync(string appId);
+        Task<CustomerDto> FindByUsernameAsync(string username);
     }
 }
 
