@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
 {
     [DbContext(typeof(CustomersContext))]
-    [Migration("20201103210012_Initial")]
+    [Migration("20201121164112_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.5")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -28,9 +28,8 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CustomerUsername")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -40,6 +39,8 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerId");
+
                     b.HasIndex("SizeId");
 
                     b.ToTable("CartProducts");
@@ -48,9 +49,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
             modelBuilder.Entity("ClothingStoreFranchise.NetCore.Customers.Model.Customer", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -61,10 +60,10 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -126,6 +125,12 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
 
             modelBuilder.Entity("ClothingStoreFranchise.NetCore.Customers.Model.CartProduct", b =>
                 {
+                    b.HasOne("ClothingStoreFranchise.NetCore.Customers.Model.Customer", null)
+                        .WithMany("CartProducts")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ClothingStoreFranchise.NetCore.Customers.Model.SizeStock", "Size")
                         .WithMany()
                         .HasForeignKey("SizeId");

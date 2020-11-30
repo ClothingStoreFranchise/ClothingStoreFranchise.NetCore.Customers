@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ClothingStoreFranchise.NetCore.Common.Extensible;
 using ClothingStoreFranchise.NetCore.Customers.Dto;
+using ClothingStoreFranchise.NetCore.Customers.Dto.Events;
 using ClothingStoreFranchise.NetCore.Customers.Model;
 
 namespace ClothingStoreFranchise.NetCore.Customers.Mapper
@@ -13,9 +13,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Mapper
 
             CreateMap<ProductDto, Product>();
 
-            /*.ForMember(entity => entity., p => p.Ignore())
-            .ForMember(entiy => entiy.Offers, p => p.Ignore())
-            .ForMember(entity => entity.CatalogProductId, p => p.Ignore());*/
+            CreateMap<CreateProductEvent, Product>();
+
+            CreateMap<UpdateProductEvent, Product>();
         }
     }
 }

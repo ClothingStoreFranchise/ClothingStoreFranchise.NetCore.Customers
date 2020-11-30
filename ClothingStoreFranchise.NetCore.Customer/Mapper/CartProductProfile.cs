@@ -17,8 +17,13 @@ namespace ClothingStoreFranchise.NetCore.Customers.Mapper
                 .ForMember(dest => dest.PictureUrl, opt => opt.MapFrom(src => src.Size.Product.PictureUrl))
                 .ForMember(dest => dest.ClothingSizeType, opt => opt.MapFrom(src => src.Size.Product.ClothingSizeType));
             CreateMap<CartProductDto, CartProduct>()
+                .ForMember(dest => dest.Size, opt => opt.Ignore())
                 .AfterMap<TrackCartProductAction>();
-            CreateMap<SizeStock, CartProductDto>();
+            CreateMap<SizeStock, CartProductDto>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name))
+                .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.Product.UnitPrice))
+                .ForMember(dest => dest.PictureUrl, opt => opt.MapFrom(src => src.Product.PictureUrl))
+                .ForMember(dest => dest.ClothingSizeType, opt => opt.MapFrom(src => src.Product.ClothingSizeType));
         }
     }
 
@@ -39,7 +44,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Mapper
 
         public void TrackCategory(CartProductDto dto, CartProduct entity)
         {
-            SizeStock size = _sizeStockDao.FindByProductIdAndSizeWithEnoughStock(dto.Id, dto.Size, dto.Quantity).Result;
+            SizeStock size = _sizeStockDao.FindByProductIdAndSizeWithEnoughStock(dto.ProductId, dto.Size, dto.Quantity).Result;
             entity.Size = size;
         }
     }

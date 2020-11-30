@@ -10,11 +10,10 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(nullable: false),
                     Username = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
@@ -67,7 +66,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerUsername = table.Column<string>(nullable: false),
+                    CustomerId = table.Column<long>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     SizeId = table.Column<long>(nullable: true)
                 },
@@ -75,12 +74,23 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
                 {
                     table.PrimaryKey("PK_CartProducts", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_CartProducts_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_CartProducts_SizeStocks_SizeId",
                         column: x => x.SizeId,
                         principalTable: "SizeStocks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartProducts_CustomerId",
+                table: "CartProducts",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartProducts_SizeId",

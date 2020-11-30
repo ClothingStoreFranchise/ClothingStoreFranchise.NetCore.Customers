@@ -18,6 +18,11 @@ namespace ClothingStoreFranchise.NetCore.Customers
         public DbSet<SizeStock> SizeStocks { get; set; }
 
         public DbSet<Product> Products { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
     }
 
     public class CustomersContextFactory : IDesignTimeDbContextFactory<CustomersContext>

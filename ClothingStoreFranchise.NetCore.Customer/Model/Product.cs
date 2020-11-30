@@ -1,6 +1,5 @@
 ﻿using ClothingStoreFranchise.NetCore.Common.Constants;
 using ClothingStoreFranchise.NetCore.Common.Extensible;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,7 +16,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Model
 
         public string PictureUrl { get; set; }
 
-        public ClothingSizeType ClothingSizeType { get; set; }
+        public virtual ClothingSizeType ClothingSizeType { get; set; }
 
         public override long GetAppId()
         {

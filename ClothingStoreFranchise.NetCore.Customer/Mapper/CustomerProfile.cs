@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using ClothingStoreFranchise.NetCore.Common.Extensible;
 using ClothingStoreFranchise.NetCore.Customers.Dto;
-using ClothingStoreFranchise.NetCore.Customers.Dto.Events;
 using ClothingStoreFranchise.NetCore.Customers.Model;
 
 namespace ClothingStoreFranchise.NetCore.Customers.Mapper
@@ -14,11 +12,11 @@ namespace ClothingStoreFranchise.NetCore.Customers.Mapper
 
             //CreateMap<CustomerDto, Customer>().IncludeBase<BaseExtensibleEntityDto, IExtensibleEntity>();
 
-            CreateMap<Customer, CustomerDto>();
+            CreateMap<Customer, CustomerDto>()
+            .ForMember(dest => dest.CartProducts, opt => opt.Ignore());
 
-            CreateMap<CustomerDto, Customer>();
-
-            CreateMap<CustomerDto, RegisterUserEvent>();
+            CreateMap<CustomerDto, Customer>()
+                .ForMember(dest => dest.CartProducts, opt => opt.Ignore());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Model
         [ForeignKey("Product")]
         public long ProductId { get; set; }
 
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         public int Size { get; set; }
 
