@@ -102,10 +102,10 @@ namespace ClothingStoreFranchise.NetCore.Customers
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
             //catalog microservice events
+            eventBus.Subscribe<CreateProductEvent, ProductCreatedHandler>();
             eventBus.Subscribe<UpdateProductEvent, ProductUpdatedHandler>();
             eventBus.Subscribe<DeleteProductEvent, ProductDeletedHandler>();
             //inventory microservice events
-            eventBus.Subscribe<CreateProductStockEvent, ProductStockCreatedHandler>();
             eventBus.Subscribe<UpdateStockEvent, StockUpdatedHandler>();
         }
     }

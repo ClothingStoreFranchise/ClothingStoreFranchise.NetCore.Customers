@@ -31,6 +31,7 @@ namespace ClothingStoreFranchise.NetCore.Customers
             services.AddScoped<ISizeStockDao, SizeStockDao>();
 
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICartProductService, CartProductService>();
             services.AddScoped<ISizeStockService, SizeStockService>();
 
@@ -57,9 +58,9 @@ namespace ClothingStoreFranchise.NetCore.Customers
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 
-            services.AddTransient<ProductDeletedHandler>();
-            services.AddTransient<ProductStockCreatedHandler>();
+            services.AddTransient<ProductCreatedHandler>();
             services.AddTransient<ProductUpdatedHandler>();
+            services.AddTransient<ProductDeletedHandler>();
             services.AddTransient<StockUpdatedHandler>();
 
             return services;

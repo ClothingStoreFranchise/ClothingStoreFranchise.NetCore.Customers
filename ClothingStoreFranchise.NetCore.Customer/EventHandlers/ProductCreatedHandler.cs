@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 
 namespace ClothingStoreFranchise.NetCore.Customers.EventHandlers
 {
-    public class ProductDeletedHandler : IIntegrationEventHandler<DeleteProductEvent>
+    public class ProductCreatedHandler : IIntegrationEventHandler<CreateProductEvent>
     {
         private readonly IProductService _productService;
 
-        public ProductDeletedHandler(IProductService productService)
+        public ProductCreatedHandler(IProductService productService)
         {
             _productService = productService;
         }
 
-        public async Task HandleAsync(DeleteProductEvent @event)
+        public async Task HandleAsync(CreateProductEvent @event)
         {
-            await _productService.DeleteAsync(@event.Id);
+            await _productService.CreateAsync(@event);
         }
     }
 }

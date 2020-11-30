@@ -1,10 +1,14 @@
 ﻿using ClothingStoreFranchise.NetCore.Common.Constants;
 using ClothingStoreFranchise.NetCore.Common.Events.Impl;
 using ClothingStoreFranchise.NetCore.Common.Types;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ClothingStoreFranchise.NetCore.Customers.Dto.Events
 {
-    public class UpdateProductEvent : IntegrationEvent, IEntityDto<long>
+    public class CreateProductEvent : IntegrationEvent, IEntityDto<long>
     {
         public long Id { get; set; }
 
