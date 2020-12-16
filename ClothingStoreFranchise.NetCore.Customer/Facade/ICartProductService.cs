@@ -13,5 +13,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade
         Task<ICollection<CartProductDto>> FindCartProductsByCustomerId(long customerId);
 
         Task DeleteAsync(long id);
+
+        Task DeleteByCustomerId(long customerId);
     }
 }

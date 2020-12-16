@@ -35,7 +35,6 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         public async Task<ICollection<CartProductDto>> AddUpdateCartProducts(long customerId, ICollection<CartProductDto> cartProductDtos)
         {
-            //ICollection<CartProductDto> cartProductsUpdated = new List<CartProductDto>();
             ICollection<CartProduct> cartProducts = await _cartProductDao.FindByCustomerIdAsync(customerId);
 
             foreach (var cartProductDto in cartProductDtos)
@@ -45,7 +44,6 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
                 {
                     cartProductExisted.Quantity += cartProductDto.Quantity;
                     await _cartProductDao.UpdateAsync(cartProductExisted);
-                    //cartProductsUpdated.Add(cartProductDtoUpdated);
                 }
                 else
                 {
@@ -64,6 +62,12 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             cartProduct.Quantity = quantity;
             var cartProductUpdated = await _cartProductDao.UpdateAsync(cartProduct);
             return _mapper.Map<CartProductDto>(cartProductUpdated);
+        }
+
+        public async Task DeleteByCustomerId(long customerId)
+        {
+            ICollection<CartProduct> cartProducts = await _cartProductDao.FindByCustomerIdAsync(customerId);
+            await _cartProductDao.DeleteAsync(cartProducts);
         }
 
         protected override Expression<Func<CartProduct, bool>> EntityAlreadyExistsCondition(CartProductDto dto)

@@ -20,30 +20,36 @@ namespace ClothingStoreFranchise.NetCore.Customers.Controllers
             _stockService = stockService;
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<ActionResult<ICollection<CartProductDto>>> GetWithoutLogIn([FromBody] ICollection<CartProductDto> cartProductDtos)
         {
             return Ok(await _stockService.FindByProductIdAndSizeWithEnoughStock(cartProductDtos));
         }
 
-        [HttpGet("{customerId}")]
+        [HttpPut]
+        public async Task<ActionResult<CartProductDto>> UpdateQuantity([FromBody] CartProductDto cartProductDto)
+        {
+            return Ok(await _cartProductService.UpdateQuantityAsync(cartProductDto.Id, cartProductDto.Quantity));
+        }
+
+        [HttpGet("customer/{customerId}")]
         public async Task<ActionResult<ICollection<CartProductDto>>> GetByCustomer(long customerId)
         {
             return Ok(await _cartProductService.FindCartProductsByCustomerId(customerId));
         }
 
-        [HttpPut("{customerId}")]
+        [HttpPut("customer/{customerId}")]
         public async Task<ActionResult<ICollection<CartProductDto>>> CreateOrUpdateIfExistMultiple(long customerId, [FromBody] ICollection<CartProductDto> cartProducts)
         {
             return Ok(await _cartProductService.AddUpdateCartProducts(customerId, cartProducts));
         }
-        
-        [HttpPut("quantity")]
-        public async Task<ActionResult<CartProductDto>> UpdateQuantity([FromBody] CartProductDto cartProductDto)
+
+        [HttpDelete("customer/{customerId}")]
+        public async Task DeleteByCustomerId(long customerId)
         {
-            return Ok(await _cartProductService.UpdateQuantityAsync(cartProductDto.Id, cartProductDto.Quantity));
+            await _cartProductService.DeleteByCustomerId(customerId);
         }
-        
+
         [HttpDelete("{cartProductId}")]
         public async Task Delete(long cartProductId)
         {

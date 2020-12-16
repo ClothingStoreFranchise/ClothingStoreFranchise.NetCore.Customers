@@ -45,10 +45,6 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         protected async virtual Task CreateValidationActionsAsync(TEntityDto dto)
         {
-            /*if (!IsValid(dto))
-            {
-                //throw new InvalidDataException();
-            }*/
             if (await _entityDao.AnyAsync(EntityAlreadyExistsToCreateCondition(dto)))
             {
                 //throw new EntityAlreadyExistsException();
@@ -138,10 +134,10 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             await _entityDao.DeleteAsync(appId);
         }
 
-        public async virtual Task DeleteAsync(ICollection<TAppId> listAppId)
+        public async virtual Task DeleteByIdAsync(ICollection<long> listAppId)
         {
             //DeleteValidationActions(listAppId);
-            await _entityDao.DeleteAsync(listAppId);
+            await _entityDao.DeleteByIdAsync(listAppId);
         }
 
         /*protected virtual DeleteValidationActions(ICollection<TAppId> listAppId)
