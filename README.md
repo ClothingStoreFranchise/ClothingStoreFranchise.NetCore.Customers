@@ -13,7 +13,7 @@ Microservice that manages customers of the clothing store franchise. This micros
 **Database Design**
 ----------------
 
-![databaseDesign](https://github.com/ClothingStoreFranchise/ClothingStoreFranchise.NetCore.Customers/blob/develop/figures/CustomerDb.png)
+![databaseDesign](https://github.com/ClothingStoreFranchise/ClothingStoreFranchise.NetCore.Customers/blob/develop/figures/CustomerDB.png)
 
 **Architecture Design**
 ----------------
