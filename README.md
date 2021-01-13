@@ -1,4 +1,4 @@
-# ClothingStoreFranchise.NetCore.Customers
+# ClothingStoreFranchise: Customers Microservice
 
 **Description**
 ----------------
