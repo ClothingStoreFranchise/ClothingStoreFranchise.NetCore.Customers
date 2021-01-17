@@ -8,7 +8,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade
     {
         Task<CartProductDto> UpdateQuantityAsync(long productId, int quantity);
 
-        Task<ICollection<CartProductDto>> AddUpdateCartProducts(long customerId, ICollection<CartProductDto> cartProductDtos);
+        Task<ICollection<CartProductDto>> AddUpdateCartProducts(long customerId, ICollection<CartProductBaseDto> cartProductDtos);
 
         Task<ICollection<CartProductDto>> FindCartProductsByCustomerId(long customerId);
 

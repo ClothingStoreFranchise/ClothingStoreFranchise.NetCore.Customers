@@ -39,7 +39,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Controllers
         }
 
         [HttpPut("customer/{customerId}")]
-        public async Task<ActionResult<ICollection<CartProductDto>>> CreateOrUpdateIfExistMultiple(long customerId, [FromBody] ICollection<CartProductDto> cartProducts)
+        public async Task<ActionResult<ICollection<CartProductDto>>> CreateOrUpdateIfExistMultiple(long customerId, [FromBody] ICollection<CartProductBaseDto> cartProducts)
         {
             return Ok(await _cartProductService.AddUpdateCartProducts(customerId, cartProducts));
         }

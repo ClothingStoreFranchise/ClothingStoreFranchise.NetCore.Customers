@@ -14,10 +14,23 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
     {
         private readonly ICustomerDao _customerDao;
 
-        public CustomerService(IMapper mapper, ICustomerDao customerDao)
+        private readonly ICartProductService _cartProductService;
+
+        public CustomerService(IMapper mapper, ICustomerDao customerDao, ICartProductService cartProductService)
             : base(customerDao, mapper)
         {
             _customerDao = customerDao;
+            _cartProductService = cartProductService;
+        }
+
+        public override async Task<CustomerDto> CreateAsync(CustomerDto customerDto)
+        {
+            var customer = await base.CreateAsync(customerDto);
+            //var cartProducts = _mapper.Map<ICollection<CartProductBaseDto>>(customerDto.CartProducts);
+
+            await _cartProductService.AddUpdateCartProducts(customer.Id, customerDto.CartProducts);
+
+            return customer;
         }
 
         public async Task<CustomerDto> FindByUsernameAsync(string username)

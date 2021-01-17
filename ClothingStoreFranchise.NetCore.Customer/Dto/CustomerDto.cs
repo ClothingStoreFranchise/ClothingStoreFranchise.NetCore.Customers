@@ -1,10 +1,5 @@
-﻿using ClothingStoreFranchise.NetCore.Common.Extensible;
-using ClothingStoreFranchise.NetCore.Common.Types;
-using ClothingStoreFranchise.NetCore.Customers.Model;
-using System;
+﻿using ClothingStoreFranchise.NetCore.Common.Types;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClothingStoreFranchise.NetCore.Customers.Dto
 {
@@ -28,7 +23,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dto
 
         public string Email { get; set; }
 
-        public ICollection<CartProductDto> CartProducts { get; set; }
+        public ICollection<CartProductBaseDto> CartProducts { get; set; }
 
         public long Key() => Id;
     }

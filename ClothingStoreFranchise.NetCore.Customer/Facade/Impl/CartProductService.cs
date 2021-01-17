@@ -33,7 +33,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             return cartProducts.Where(s=> s.Quantity <= s.Size.Stock).Select(l => _mapper.Map<CartProductDto>(l)).ToList();
         }
 
-        public async Task<ICollection<CartProductDto>> AddUpdateCartProducts(long customerId, ICollection<CartProductDto> cartProductDtos)
+        public async Task<ICollection<CartProductDto>> AddUpdateCartProducts(long customerId, ICollection<CartProductBaseDto> cartProductDtos)
         {
             ICollection<CartProduct> cartProducts = await _cartProductDao.FindByCustomerIdAsync(customerId);
 
