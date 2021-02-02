@@ -98,9 +98,10 @@ namespace ClothingStoreFranchise.NetCore.Customers
 
         public static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
         {
+
             services.AddDbContext<CustomersContext>(options =>
             {
-                options.UseSqlServer(@"data source=127.0.0.1; initial catalog=Customer; persist security info=True; user id=sqlserver; password=root",
+                options.UseSqlServer(@configuration["DatabaseConnection:DataSource"],
                                      sqlServerOptionsAction: sqlOptions =>
                                      {
                                          sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
@@ -111,7 +112,7 @@ namespace ClothingStoreFranchise.NetCore.Customers
 
             services.AddDbContext<IntegrationEventLogContext>(options =>
             {
-                options.UseSqlServer(@configuration["DatabaseConnection"],
+                options.UseSqlServer(@configuration["DatabaseConnection:DataSource"],
                                      sqlServerOptionsAction: sqlOptions =>
                                      {
                                          sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);

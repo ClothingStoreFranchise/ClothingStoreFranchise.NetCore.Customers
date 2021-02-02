@@ -36,7 +36,12 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         protected override Expression<Func<Product, bool>> EntityAlreadyExistsCondition(ProductDto dto)
         {
-            throw new NotImplementedException();
+            return c => c.Id == dto.Id;
+        }
+
+        protected override Expression<Func<Product, bool>> EntityAlreadyExistsToUpdateCondition(ProductDto dto)
+        {
+            return c => c.Id == dto.Id;
         }
 
         protected override Expression<Func<Product, bool>> EntityHasDependenciesToDeleteCondition(ICollection<long> listAppIds)

@@ -4,7 +4,6 @@ using ClothingStoreFranchise.NetCore.Customers.Dto;
 using ClothingStoreFranchise.NetCore.Customers.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -57,7 +56,12 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         protected override Expression<Func<SizeStock, bool>> EntityAlreadyExistsCondition(StockDto dto)
         {
-            throw new NotImplementedException();
+            return c => c.ProductId == dto.ProductId;
+        }
+
+        protected override Expression<Func<SizeStock, bool>> EntityAlreadyExistsToUpdateCondition(StockDto dto)
+        {
+            return c => c.ProductId == dto.ProductId;
         }
 
         protected override Expression<Func<SizeStock, bool>> EntityHasDependenciesToDeleteCondition(ICollection<long> listAppIds)

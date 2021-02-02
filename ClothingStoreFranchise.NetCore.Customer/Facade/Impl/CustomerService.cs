@@ -4,7 +4,6 @@ using ClothingStoreFranchise.NetCore.Customers.Dto;
 using ClothingStoreFranchise.NetCore.Customers.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -27,8 +26,10 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
         {
             var customer = await base.CreateAsync(customerDto);
             //var cartProducts = _mapper.Map<ICollection<CartProductBaseDto>>(customerDto.CartProducts);
-
-            await _cartProductService.AddUpdateCartProducts(customer.Id, customerDto.CartProducts);
+            if (customerDto.CartProducts.Count > 0)
+            {
+                await _cartProductService.AddUpdateCartProducts(customer.Id, customerDto.CartProducts);
+            }
 
             return customer;
         }
@@ -41,7 +42,12 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         protected override Expression<Func<Customer, bool>> EntityAlreadyExistsCondition(CustomerDto dto)
         {
-            throw new NotImplementedException();
+            return c => c.Username == dto.Username;
+        }
+
+        protected override Expression<Func<Customer, bool>> EntityAlreadyExistsToUpdateCondition(CustomerDto dto)
+        {
+            return c => c.Username == dto.Username;
         }
 
         protected override Expression<Func<Customer, bool>> EntityHasDependenciesToDeleteCondition(ICollection<long> listAppIds)
@@ -51,7 +57,25 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         protected override bool IsValid(CustomerDto dto)
         {
-            throw new NotImplementedException();
+            return NullValidations(dto) && DateValidations(dto);
+        }
+
+        private static bool NullValidations(CustomerDto dto)
+        {
+            return dto != null
+                && !string.IsNullOrWhiteSpace(dto.Username)
+                && !string.IsNullOrWhiteSpace(dto.FirstName)
+                && !string.IsNullOrWhiteSpace(dto.LastName)
+                && !string.IsNullOrWhiteSpace(dto.Address)
+                && !string.IsNullOrWhiteSpace(dto.Country)
+                && !string.IsNullOrWhiteSpace(dto.PhoneNumber)
+                && !string.IsNullOrWhiteSpace(dto.Email)
+                && !string.IsNullOrWhiteSpace(dto.CardNumber);
+        }
+
+        private static bool DateValidations(CustomerDto dto)
+        {
+            return dto.ExpirationDate > DateTime.Now;
         }
     }
 }

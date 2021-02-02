@@ -75,6 +75,11 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             return c => c.Size.Size == dto.Size && c.Size.ProductId == dto.ProductId;
         }
 
+        protected override Expression<Func<CartProduct, bool>> EntityAlreadyExistsToUpdateCondition(CartProductDto dto)
+        {
+            return c => c.Id == dto.Id;
+        }
+
         protected override Expression<Func<CartProduct, bool>> EntityHasDependenciesToDeleteCondition(ICollection<long> listAppIds)
         {
             throw new NotImplementedException();
@@ -82,7 +87,12 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         protected override bool IsValid(CartProductDto dto)
         {
-            throw new NotImplementedException();
+            return NumericValidations(dto);
+        }
+
+        private static bool NumericValidations(CartProductDto dto)
+        {
+            return dto.Quantity > 0;
         }
     }
 }

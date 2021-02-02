@@ -1,6 +1,7 @@
 ﻿using ClothingStoreFranchise.NetCore.Customers.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace ClothingStoreFranchise.NetCore.Customers
@@ -29,8 +30,10 @@ namespace ClothingStoreFranchise.NetCore.Customers
     {
         public CustomersContext CreateDbContext(string[] args)
         {
+            IConfiguration configuration = Program.GetConfiguration();
+
             var optionsBuilder = new DbContextOptionsBuilder<CustomersContext>()
-                .UseSqlServer(@"data source=127.0.0.1; initial catalog=Customer; persist security info=True; user id=sqlserver; password=root")
+                .UseSqlServer(@configuration["DatabaseConnection:DataSource"])
                 .EnableSensitiveDataLogging(true)
                 .UseLoggerFactory(new LoggerFactory());
 

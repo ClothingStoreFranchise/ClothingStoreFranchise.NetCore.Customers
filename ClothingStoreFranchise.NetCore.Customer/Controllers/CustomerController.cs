@@ -1,7 +1,6 @@
 ﻿using ClothingStoreFranchise.NetCore.Customers.Dto;
 using ClothingStoreFranchise.NetCore.Customers.Facade;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ClothingStoreFranchise.NetCore.Customers.Controllers
@@ -41,33 +40,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Controllers
         [HttpPost]
         public async Task<ActionResult<CartProductDto>> Create(CustomerDto customer)
         {
-            return Ok(await _customerService.CreateAsync(customer));
+            return Created("customers", await _customerService.CreateAsync(customer));
         }
-
-        /*
-        // GET: api/Customer/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Customer
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Customer/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }*/
     }
 }

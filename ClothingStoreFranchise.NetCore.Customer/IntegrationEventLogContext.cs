@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace ClothingStoreFranchise.NetCore.Customers
@@ -49,8 +50,10 @@ namespace ClothingStoreFranchise.NetCore.Customers
     {
         public IntegrationEventLogContext CreateDbContext(string[] args)
         {
+            IConfiguration configuration = Program.GetConfiguration();
+
             var optionsBuilder = new DbContextOptionsBuilder<IntegrationEventLogContext>()
-                .UseSqlServer(@"data source = 127.0.0.1; initial catalog=Customer; persist security info=True; user id=sqlserver; password=root")
+                .UseSqlServer(@configuration["DatabaseConnection:DataSource"])
                 .EnableSensitiveDataLogging(true)
                 .UseLoggerFactory(new LoggerFactory());
 

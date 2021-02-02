@@ -71,8 +71,10 @@ namespace ClothingStoreFranchise.NetCore.Customers
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
             }
+
+            app.UseExceptionHandler("/error");
 
             app.UseRouting();
 

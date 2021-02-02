@@ -26,6 +26,10 @@ namespace ClothingStoreFranchise.NetCore.Customers.Model
 
         public string Email { get; set; }
 
+        public string CardNumber { get; set; }
+
+        public DateTime ExpirationDate { get; set; }
+
         public virtual ICollection<CartProduct> CartProducts { get; set; }
 
         public override long GetAppId()
