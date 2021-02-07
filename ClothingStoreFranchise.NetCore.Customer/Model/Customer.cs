@@ -28,7 +28,8 @@ namespace ClothingStoreFranchise.NetCore.Customers.Model
 
         public string CardNumber { get; set; }
 
-        public DateTime ExpirationDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? ExpirationDate { get; set; }
 
         public virtual ICollection<CartProduct> CartProducts { get; set; }
 

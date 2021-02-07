@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
 {
-    public partial class Initial : Migration
+    public partial class Initial3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +18,9 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
                     Address = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(nullable: true),
+                    CardNumber = table.Column<string>(nullable: true),
+                    ExpirationDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

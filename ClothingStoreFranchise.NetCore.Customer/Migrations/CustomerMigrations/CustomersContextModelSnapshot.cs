@@ -61,7 +61,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Migrations.CustomerMigrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ExpirationDate")
+                    b.Property<DateTime?>("ExpirationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
