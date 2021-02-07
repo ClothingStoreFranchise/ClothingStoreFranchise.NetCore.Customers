@@ -26,7 +26,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Dto
 
         public string CardNumber { get; set; }
 
-        public DateTime ExpirationDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
 
         public ICollection<CartProductBaseDto> CartProducts { get; set; }
 

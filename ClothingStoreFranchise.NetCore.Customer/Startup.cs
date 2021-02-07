@@ -46,13 +46,6 @@ namespace ClothingStoreFranchise.NetCore.Customers
             services.AddAuthentication("Basic")
                  .AddScheme<BasicAuthenticationOptions, CustomAuthenticationHandler>("Basic", null);
 
-            services.AddAuthorization(config =>
-            {
-                //UPDATE is new in common
-                config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
-                config.AddPolicy(Policies.Customer, Policies.CustomerAdminPolicy());
-            });
-
             services.AddCustomersServices();
 
             services.AddCustomDbContext(Configuration);

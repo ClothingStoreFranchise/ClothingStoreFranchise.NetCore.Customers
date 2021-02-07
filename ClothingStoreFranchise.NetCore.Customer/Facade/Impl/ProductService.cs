@@ -51,7 +51,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         protected override bool IsValid(ProductDto dto)
         {
-            throw new NotImplementedException();
+            return dto.UnitPrice > 0;
         }
     }
 }

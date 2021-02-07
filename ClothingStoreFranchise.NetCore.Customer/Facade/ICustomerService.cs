@@ -10,6 +10,8 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade
 
         Task<CustomerDto> UpdateAsync(CustomerDto customer);
 
+        Task<CustomerDto> UpdateCustomerAfterCheckoutAsync(CustomerDto customerDto);
+
         Task DeleteAsync(long id);
 
         Task<ICollection<CustomerDto>> LoadAllAsync();

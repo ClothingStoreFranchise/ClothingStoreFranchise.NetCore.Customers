@@ -56,12 +56,12 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         protected override Expression<Func<SizeStock, bool>> EntityAlreadyExistsCondition(StockDto dto)
         {
-            return c => c.ProductId == dto.ProductId;
+            return c => c.ProductId == dto.ProductId && c.Size == dto.Size;
         }
 
         protected override Expression<Func<SizeStock, bool>> EntityAlreadyExistsToUpdateCondition(StockDto dto)
         {
-            return c => c.ProductId == dto.ProductId;
+            return c => c.ProductId == dto.ProductId && c.Size == dto.Size;
         }
 
         protected override Expression<Func<SizeStock, bool>> EntityHasDependenciesToDeleteCondition(ICollection<long> listAppIds)
@@ -71,7 +71,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         protected override bool IsValid(StockDto dto)
         {
-            throw new NotImplementedException();
+            return dto.Stock >= 0;
         }
     }
 }

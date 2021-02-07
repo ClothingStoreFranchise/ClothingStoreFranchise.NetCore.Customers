@@ -34,6 +34,16 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
             return customer;
         }
 
+        public async Task<CustomerDto> UpdateCustomerAfterCheckoutAsync(CustomerDto customerDto)
+        {
+            var customer = await base.UpdateAsync(customerDto);
+            //var cartProducts = _mapper.Map<ICollection<CartProductBaseDto>>(customerDto.CartProducts);
+
+            await _cartProductService.DeleteByCustomerId(customer.Id);
+
+            return customer;
+        }
+
         public async Task<CustomerDto> FindByUsernameAsync(string username)
         {
             Customer customer = await _customerDao.FindByUsernameAsync(username);
@@ -57,7 +67,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
 
         protected override bool IsValid(CustomerDto dto)
         {
-            return NullValidations(dto) && DateValidations(dto);
+            return NullValidations(dto);
         }
 
         private static bool NullValidations(CustomerDto dto)
@@ -69,13 +79,7 @@ namespace ClothingStoreFranchise.NetCore.Customers.Facade.Impl
                 && !string.IsNullOrWhiteSpace(dto.Address)
                 && !string.IsNullOrWhiteSpace(dto.Country)
                 && !string.IsNullOrWhiteSpace(dto.PhoneNumber)
-                && !string.IsNullOrWhiteSpace(dto.Email)
-                && !string.IsNullOrWhiteSpace(dto.CardNumber);
-        }
-
-        private static bool DateValidations(CustomerDto dto)
-        {
-            return dto.ExpirationDate > DateTime.Now;
+                && !string.IsNullOrWhiteSpace(dto.Email);
         }
     }
 }
